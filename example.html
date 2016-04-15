@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="nativeditor.css"></link>
+	</head>
+	<body>
+		<textarea rows="50" cols="250" id="exampleTextarea">
+			document.onreadystatechange = function() {
+				if (document.readyState != 'interactive') {
+					return;
+				}
+
+				var textarea = document.getElementById("exampleTextarea");
+				new nativeditor(textarea, nativeditor.js);
+			};
+		</textarea>
+		<script src="nativeditor.js"></script>
+		<script>
+			document.onreadystatechange = function() {
+				if (document.readyState != 'interactive') {
+					return;
+				}
+
+				var textarea = document.getElementById("exampleTextarea");
+				new nativeditor(textarea, nativeditor.js);
+			};
+		</script>
+
+		<style>
+body {
+	background-color: #111;
+}
+	</body>
+</html>

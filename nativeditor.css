@@ -1,0 +1,92 @@
+.whitespace {
+	display: inline-block;
+}
+
+.nativeditor {
+	font-family: monospace;
+	position: absolute;
+	font-size: 12px;
+	padding: 7px 14px;
+	margin: 1px;
+	letter-spacing: 0px;
+	cursor: text;
+	line-height: 14px;
+	border: 1px solid grey;
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px grey;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	color: #eee;
+}
+
+.nativeditor-textarea {
+	font-size: 12px;
+	letter-spacing: 0px;
+	line-height: 14px;
+	font-family: monospace;
+	padding: 4px 8px;
+	margin: 0px 0px;
+	opacity: 0;
+}
+
+.nativeditor-cursor {
+	top: 7px;
+	left: 13px;
+	position: absolute;
+	min-height: 13px;
+	border-left: 1px solid grey;
+	animation-name: blink;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 1;
+	}
+	51% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+
+}
+
+.nativeditor-stringlit {
+	color: blue;
+	font-weight: bold;
+}
+
+.nativeditor-regexlit {
+	color: brown;
+	font-weight: bold;
+}
+
+.nativeditor-control-keyword {
+	color: brown;
+	font-weight: bold;
+}
+
+.nativeditor-decl-keyword {
+	color: orange;
+	font-weight: bold;
+}
+
+.nativeditor-value-keyword {
+	color: red;
+	font-weight: bold;
+}
+
+.nativeditor-comment {
+	color: purple;
+	font-style: italic;
+}
+
+.nativeditor-symbol {
+	color: #666;
+	font-weight: bold
+}
