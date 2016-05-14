@@ -43,9 +43,20 @@ var nativeditor = function() {
 
 		document.addEventListener('keyup', function(e) {
 			var range = document.getSelection();
-			if (this.isSelected(range) || e.key.length === 1) {
-				var focusPos = range.focusNode.parentElement.pos + range.focusOffset;
-				var anchorPos = range.anchorNode.parentElement.pos + range.anchorOffset;
+			if (this.isSelected(range) && e.key.length === 1) {
+				var focusNode = range.focusNode;
+				var anchorNode = range.anchorNode;
+
+				// @TODO when anchor or focus nodes are the container, count offset by
+				// elements not by characters...
+				if (!focusNode.hasOwnProperty('pos')) {
+					focusNode = focusNode.parentElement;
+				}
+				if (!anchorNode.hasOwnProperty('pos')) {
+					anchorNode = anchorNode.parentElement;
+				}
+				var focusPos = focusNode.pos + range.focusOffset;
+				var anchorPos = anchorNode.pos + range.anchorOffset;
 				var startPos = Math.min(focusPos, anchorPos);
 				var endPos = Math.max(focusPos, anchorPos);
 
@@ -240,6 +251,7 @@ var nativeditor = function() {
 			container.style.width = textarea.offsetWidth + "px";
 			container.style.height = textarea.offsetHeight + "px";
 			container.appendChild(cursor);
+			container.pos = 0; // for selection calculations
 
 			// TODO bind this properly
 			function editSelection(withWhat) {
