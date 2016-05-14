@@ -41,23 +41,39 @@ var nativeditor = function() {
 		this.rerender();
 		this.bindClick();
 
-
 		document.addEventListener('keyup', function(e) {
 			var range = document.getSelection();
-			if (this.isSelected(range)) {
-				var startPos = range.focusNode.parentElement.pos + range.focusOffset;
-				var endPos = range.anchorNode.parentElement.pos + range.anchorOffset;
+			if (this.isSelected(range) || e.key.length === 1) {
+				var focusPos = range.focusNode.parentElement.pos + range.focusOffset;
+				var anchorPos = range.anchorNode.parentElement.pos + range.anchorOffset;
+				var startPos = Math.min(focusPos, anchorPos);
+				var endPos = Math.max(focusPos, anchorPos);
 
-				this.textarea.focus();
 				this.replaceSelection(e.key, startPos, endPos);
+				this.textarea.focus();
 				this.rerender();
+			}
+		}.bind(this));
+
+		document.addEventListener('copy', function(e) {
+			var range = document.getSelection();
+			if (this.isSelected(range)) {
+				var focusPos = range.focusNode.parentElement.pos + range.focusOffset;
+				var anchorPos = range.anchorNode.parentElement.pos + range.anchorOffset;
+				var startPos = Math.min(focusPos, anchorPos);
+				var endPos = Math.max(focusPos, anchorPos);
+				var text = textarea.value.substr(startPos, endPos - startPos);
 			}
 		}.bind(this));
 	};
 
 	nativeditor.prototype.replaceSelection = function(withWhat, start, end) {
-		var prefix = this.textarea.value.substr(0, start || this.textarea.selectionStart);
-		var suffix = this.textarea.value.substr(end || this.textarea.selectionEnd);
+		if (start === undefined || end === undefined) {
+			start = this.textarea.selectionStart;
+			end = this.textarea.selectionEnd;
+		}
+		var prefix = this.textarea.value.substr(0, start);
+		var suffix = this.textarea.value.substr(end);
 		this.textarea.value = prefix + withWhat + suffix;
 		this.textarea.selectionStart = this.textarea.selectionEnd = prefix.length + withWhat.length;
 	}

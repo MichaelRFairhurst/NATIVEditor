@@ -73,3 +73,4 @@ Feel free to style these in any way, so long as you do not change the font size,
 * lines do not wrap like they would in a standard textarea
 * performance will go down as the contents of the text go up, ideally some sort of infinite scroll approach should be taken
 * performance is not great as new special text regions are created. For instance, if you hold down a symbol (like `=`) in the js config, framerate may go very slow since each one is a new span and the relayouting required is very slow.
+* zoom can lead to positioning/calculation discrepancies
